@@ -31,7 +31,8 @@ end
 
 -- For getting the plain string use `stringify`.
 -- local stringify = (require "pandoc.utils").stringify
-local callouts = { 'note', 'warning', 'tip', 'important', 'caution' }
+local callouts = { 'note', 'warning', 'tip', 'important', 'caution', 'info', 'abstract', 'success', 'question',
+    'failure', 'danger', 'bug', 'example', 'quote' }
 
 function BlockQuote(el)
     start = el.content[1]
@@ -39,6 +40,7 @@ function BlockQuote(el)
         _, _, ctype = start.content[1].text:find("%[!(%w+)%]")
         _, _, collapse = start.content[1].text:find("%[!%w+%]([-+]?)")
 
+        local titletext = ""
         if (#start.content > 2 and start.content[2].t == "Space") then
             titletext = ""
             titletable = table.pack(table.unpack(start.content, 3))
