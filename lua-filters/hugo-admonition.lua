@@ -57,14 +57,14 @@ function BlockQuote(el)
         start.content:remove(1)
 
         if has_value(callouts, ctype:lower()) then
-            div = pandoc.RawBlock("markdown", '{{< admonition type="' ..
-                ctype:lower() .. '" title="' .. titletext ..
-                '" open=' .. tostring(collapse ~= "-") .. ' >}}' ..
-                "\n\n" .. pandoc.write(pandoc.Pandoc(el.content), "markdown") ..
-                '{{< /admonition >}}', "")
+            div = pandoc.RawBlock("gfm", '{{< admonition type="' ..
+            ctype:lower() .. '" title="' .. titletext ..
+            '" open=' .. tostring(collapse ~= "-") .. ' >}}' ..
+            "\n\n" .. pandoc.write(pandoc.Pandoc(el.content), "markdown") ..
+            '{{< /admonition >}}', "")
         else
-            div = pandoc.RawBlock("{{< admonition type='note' open=true >}}" ..
-                pandoc.write(pandoc.Pandoc(el.content), "markdown") .. "{{< /admonition>}}", "")
+            div = pandoc.RawBlock("gfm", "{{< admonition type='note' open=true >}}" ..
+            pandoc.write(pandoc.Pandoc(el.content), "markdown") .. "{{< /admonition>}}", "")
         end
 
         return div
